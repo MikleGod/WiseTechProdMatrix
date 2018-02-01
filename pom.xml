@@ -7,6 +7,18 @@
     <groupId>trash</groupId>
     <artifactId>javafx-1</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.12</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
@@ -19,7 +31,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>sample.Main</mainClass>
+                            <mainClass>view.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
