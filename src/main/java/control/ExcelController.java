@@ -27,11 +27,11 @@ public class ExcelController {
 
 
     private static Iterator<Row> findRowIterator(int fileType, File prodMatrixFile) throws IOException {
-        if (fileType == WindowController.XLSX_FILE){
+        if (fileType == WindowController.XLSX_FILE) {
             XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(prodMatrixFile.getAbsolutePath()));
             XSSFSheet sheet = workbook.getSheetAt(0);
             return sheet.iterator();
-        } else if(fileType == WindowController.XLS_FILE){
+        } else if (fileType == WindowController.XLS_FILE) {
             HSSFWorkbook workbook = new HSSFWorkbook(new FileInputStream(prodMatrixFile.getAbsolutePath()));
             HSSFSheet sheet = workbook.getSheetAt(0);
             return sheet.iterator();
@@ -40,30 +40,39 @@ public class ExcelController {
         }
     }
 
-    private static Matrix getMatrixFromFile(Iterator<Row> rowIterator){
+    private static Matrix getMatrixFromFile(Iterator<Row> rowIterator) {
         Matrix matrix = new Matrix();
-        while (rowIterator.hasNext()){
+        while (rowIterator.hasNext()) {
             Row row = rowIterator.next();
             Iterator<Cell> cellIterator = row.iterator();
-            if (row.getRowNum() == 0){
-                while (cellIterator.hasNext()){
+            if (row.getRowNum() == 0) {
+                while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
-                    if (cell.getColumnIndex() != 0){
+                    if (cell.getColumnIndex() != 0) {
                         matrix.assort.add(cell.getStringCellValue());
                     }
                 }
             } else {
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
-                    try {
-                        if (cell.getColumnIndex() == 0) {
-                            matrix.matrix.add(new ArrayList<String>());
-                            matrix.matrix.get(row.getRowNum() - 1).add(cell.getStringCellValue());
-                        } else if (cell.getNumericCellValue() == 1) {
-                            matrix.matrix.get(row.getRowNum() - 1).add(matrix.assort.get(cell.getColumnIndex() - 1));
+                    if (cell.getColumnIndex() == 0) {
+                        matrix.matrix.add(new ArrayList<String>());
+                        matrix.matrix.get(row.getRowNum() - 1).add(cell.getStringCellValue());
+                    } else {
+                        switch (cell.getCellType()) {
+                            case Cell.CELL_TYPE_NUMERIC: {
+                                if (cell.getNumericCellValue() == 1) {
+                                    matrix.matrix.get(row.getRowNum() - 1).add(matrix.assort.get(cell.getColumnIndex() - 1));
+                                }
+                                break;
+                            }
+                            case Cell.CELL_TYPE_STRING: {
+                                break;
+                            }
+                            case Cell.CELL_TYPE_BOOLEAN: {
+                                break;
+                            }
                         }
-                    }catch (IllegalStateException e){
-                        continue;
                     }
                 }
             }
@@ -75,9 +84,9 @@ public class ExcelController {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet();
         int prevRows = 0;
-        for (int i=0; i< matrix.matrix.size(); i++){
+        for (int i = 0; i < matrix.matrix.size(); i++) {
             String market = matrix.matrix.get(i).get(0);
-            for (int j = 1; j < matrix.matrix.get(i).size(); j++){
+            for (int j = 1; j < matrix.matrix.get(i).size(); j++) {
                 Row row = sheet.createRow(j + prevRows);
                 Cell marketCell = row.createCell(0), productCell = row.createCell(1);
                 marketCell.setCellValue(market);

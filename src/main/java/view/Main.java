@@ -19,11 +19,6 @@ public class Main extends Application {
     }
 
     private static Stage primaryStage;
-    private static ProgressBar progressBar;
-
-    public static ProgressBar getProgressBar() {
-        return progressBar;
-    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -36,15 +31,10 @@ public class Main extends Application {
                 + '\n' + "In cell [1][1] must be 1, in other cells"
                 + '\n' + "values must be 1 or empty.");
         root.getChildren().add(label);
-        progressBar = new ProgressBar();
-        root.getChildren().add(progressBar);
         AnchorPane.setBottomAnchor(label, 120.0);
         AnchorPane.setLeftAnchor(label, 10.0);
         AnchorPane.setRightAnchor(label, 10.0);
-        AnchorPane.setBottomAnchor(progressBar, 50.0);
-        AnchorPane.setLeftAnchor(progressBar, 10.0);
-        AnchorPane.setRightAnchor(progressBar, 10.0);
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Wisetech for prod matrix");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.setResizable(false);
         this.primaryStage = primaryStage;

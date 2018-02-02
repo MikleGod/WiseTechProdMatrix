@@ -9,11 +9,13 @@
         xmlns:fx="http://javafx.com/fxml">
     <Button
             AnchorPane.rightAnchor="10"
+            AnchorPane.topAnchor="10"
             maxWidth="150"
             onAction="#onFindButtonCLicked"
             text="Choose file"/>
     <Button
             onAction="#onSaveClicked"
             AnchorPane.leftAnchor="10"
+            AnchorPane.topAnchor="10"
             text="Save"/>
 </AnchorPane>

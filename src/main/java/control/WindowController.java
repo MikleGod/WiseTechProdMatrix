@@ -4,12 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 import model.Matrix;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import view.Main;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class WindowController {
@@ -19,15 +16,13 @@ public class WindowController {
     public static final int XLS_FILE = 1;
     private static int FILE_TYPE;
 
-    private static Matrix answer;
-
     @FXML
     public void onFindButtonCLicked(ActionEvent event) {
         final FileChooser chooser = new FileChooser();
         chooser.setTitle("open excel file");
         chooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("xlsx File", "*.xlsx")
-                , new FileChooser.ExtensionFilter("xls File", "*.xls")
+                //, new FileChooser.ExtensionFilter("xls File", "*.xls")
         );
         final File file = chooser.showOpenDialog(Main.getPrimaryStage());
         prodMatrixFile = file;
@@ -48,7 +43,7 @@ public class WindowController {
         chooser.setTitle("open excel file");
         chooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("xlsx File", "*.xlsx")
-                , new FileChooser.ExtensionFilter("xls File", "*.xls")
+                //, new FileChooser.ExtensionFilter("xls File", "*.xls")
         );
         final File file = chooser.showSaveDialog(Main.getPrimaryStage());
         readyUpFile = file;
